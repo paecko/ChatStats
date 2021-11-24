@@ -23,6 +23,7 @@ class Table (object):
 
     @classmethod
     def load_json_in_tables(cls, signal_json_data, *args):
+        # load data into any number of table from json_data
         for table in args:
             for message in signal_json_data:
                 table.load_table(message)
