@@ -1,11 +1,12 @@
-import sqlite3
 from Utils.General import create_value_formatters
+import csv
 
 class Table (object):
-    def __init__(self, cursor, conversation_id):
+    def __init__(self, cursor, conversation_id, create_new):
         self.cursor = cursor
         self.conversation_id = conversation_id
         self.table_name = self.conversation_id.replace("-", "")
+        self.create_new = create_new
 
     def insert_in_table(self, fields_to_values):
         values = tuple(fields_to_values.values())
@@ -17,15 +18,37 @@ class Table (object):
 
     def query_table(self, template_query):
         query = template_query.substitute(table_name=self.table_name)
-        print(query)
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
     @classmethod
     def load_json_in_tables(cls, signal_json_data, *args):
         # load data into any number of table from json_data
-        for table in args:
-            for message in signal_json_data:
+        for message in signal_json_data:
+            for table in args:
                 table.load_table(message)
+
+    def set_users(self, uuid_to_name=None, csv_file = None):
+        self.uuid_to_name = {}
+        if csv_file == None:
+            self.uuid_to_name = uuid_to_name
+        else:
+            self.uuid_to_name = self.load_users_from_csv(csv_file)
+        # sorting b/c our queries will be sorting the uuids and this dict will be used to cross-check between query results
+        self.uuid_to_name = dict(sorted(self.uuid_to_name.items()))
+
+    def get_names_list(self):
+        names = []
+        for uuid in self.uuid_to_name:
+            names.append(self.uuid_to_name[uuid])
+        return names
+    
+    def load_users_from_csv(self, csv_file):
+        uuid_to_name = {}
+        with open(csv_file) as opened_csv_file:
+            csv_reader = csv.reader(opened_csv_file)
+            for row in csv_reader:
+                uuid_to_name[row[0]] = row[1]
+        return uuid_to_name
         
     
