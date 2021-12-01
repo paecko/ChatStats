@@ -1,4 +1,3 @@
-from MessageDatabase import REQUIRED_PARAMETERS
 from Table import Table
 from Utils.General import unix_time_to_date_time_string, are_required_parameters_in_message
 from string import Template
