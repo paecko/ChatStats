@@ -1,9 +1,7 @@
 from SignalJsonMessages import SignalJsonMessages
-from MessageDatabase import MessageDatabase
 from MessageTable import MessageTable
 from ReactionsTable import ReactionsTable
 from DatabaseCursor import DatabaseCursor
-from Plotter import Plotter
 from Table import Table
 
 #signalJsonData = SignalJsonMessages("db-2.sqlite", "config.json")
