@@ -10,8 +10,8 @@ from Table import Table
 
 cursor = DatabaseCursor("Final")
 
-messageTable = MessageTable(cursor, "456f3ffe-eedc-42d1-9242-741be78fe5c7", create_new = False)
-reactionTable = ReactionsTable(cursor, "456f3ffe-eedc-42d1-9242-741be78fe5c7", create_new=False)
+messageTable = MessageTable(cursor, "xx-xxx-", create_new = False)
+reactionTable = ReactionsTable(cursor, "xx-xx", create_new=False)
 
 #Table.load_json_in_tables(signalJsonData, messageTable)
 
