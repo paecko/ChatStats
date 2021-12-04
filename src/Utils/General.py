@@ -10,3 +10,7 @@ def are_required_parameters_in_message(message, required_parameters):
         if parameter not in message:
             return False
     return True
+
+def create_value_formatters(number_of_values):
+    res = "?," * number_of_values
+    return res[:-1]
