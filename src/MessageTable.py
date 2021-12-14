@@ -1,6 +1,7 @@
 from Table import Table
 from Utils.General import unix_time_to_date_time_string, are_required_parameters_in_message
 from string import Template
+import matplotlib.pyplot as plt
 
 REQUIRED_PARAMETERS = ['timestamp', 'sourceUuid', 'body', 'conversationId']
 
@@ -25,3 +26,15 @@ class MessageTable(Table):
             if res[0] in self.uuid_to_name:
                 counts.append(res[1])
         return counts 
+
+    def plot_messages_per_user(self):
+        message_counts = self.get_messages_per_user()
+        names = self.get_names_list()
+        print(message_counts)
+        print(names)
+        plt.bar(names,message_counts)
+        plt.tick_params(axis='x', which='major', labelsize=6)
+        for index, value in enumerate(message_counts):
+            plt.text(index - 0.4,value + 0.01, str(value))
+        plt.title("Total Message Count By User")
+        plt.show()
