@@ -12,7 +12,7 @@ class SignalJsonMessages:
         if create_json_file:
             with open('data.json', 'w', encoding='utf-8') as f:
                 json.dump(json_message_objects, f, ensure_ascii=False, indent=4)
-                
+        
         return json_message_objects
 
     @classmethod
@@ -24,3 +24,19 @@ class SignalJsonMessages:
             json_str_list.pop()
         for message in json_str_list:
             json_message_objects.append(json.loads(message))
+    
+    @classmethod
+    def replace_conversation_id_in_json_file(cls, replace_id, replacement_id):
+        json_file = open("data.json", "r")
+        json_obj = json.load(json_file)
+        for message_obj in json_obj:
+            if "conversationId" in message_obj and message_obj["conversationId"] == replace_id:
+                message_obj["conversationId"] = replacement_id
+        with open('data2.json', 'w', encoding='utf-8') as f:
+                json.dump(json_obj, f, ensure_ascii=False, indent=4)
+
+    @classmethod
+    def load_json_obj_from_file(cls, file):
+        json_file = open(file, "r")
+        json_obj = json.load(json_file)
+        return json_obj
