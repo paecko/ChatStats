@@ -27,7 +27,7 @@ class MessageTable(Table):
                 counts.append(res[1])
         return counts 
 
-    def plot_messages_per_user(self):
+    def plot_messages_per_user(self, save_to=""):
         message_counts = self.get_messages_per_user()
         names = self.get_names_list()
         print(message_counts)
@@ -37,4 +37,7 @@ class MessageTable(Table):
         for index, value in enumerate(message_counts):
             plt.text(index - 0.4,value + 0.01, str(value))
         plt.title("Total Message Count By User")
-        plt.show()
+        if save_to == "":
+            plt.show()
+        else:
+            plt.savefig(save_to)
