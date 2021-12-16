@@ -11,7 +11,7 @@ You will also need the config.json file from the Signal folder. This contains th
 
 The following explanation is based on code that can be found in src/main.py
 
-Creating a connection to a database that exists. Otherwise, creates a new one.
+Create a connection to a database that exists. Otherwise, creates a new one.
 ```
 cursor = DatabaseCursor("ChatData")
 ```
