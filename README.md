@@ -7,7 +7,8 @@ Windows: C:\Users\<YourName>\AppData\Roaming\Signal\sql\db.sqlite
 
 You will also need the config.json file from the Signal folder. This contains the decryption key.
 
-### Getting Started
+
+## Getting Started
 
 The following explanation is based on code that can be found in src/main.py
 
