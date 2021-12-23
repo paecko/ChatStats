@@ -6,7 +6,7 @@ from DatabaseCursor import DatabaseCursor
 from Table import Table
 
 parser = argparse.ArgumentParser(description='Create and saves stats images based on a group chat in a signal sql database')
-subparsers = parser.add_subparsers(help='sub-command help')
+subparsers = parser.add_subparsers()
 parser_generate = subparsers.add_parser("generate", help="Generate and save stats graph for chat of given conversationId")
 
 parser_generate.add_argument("database", type=str, help="database path")
