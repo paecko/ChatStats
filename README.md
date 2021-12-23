@@ -1,4 +1,4 @@
-# ChatStats
+# signal-chat-stats
 
 A CLI that allows you to generate graphs for various metrics based on a Signal group conversation.
 
