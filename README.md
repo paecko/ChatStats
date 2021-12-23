@@ -20,12 +20,14 @@ python3 -m pip install matplotlib pandas
 
 The script src/generate_stats.py is a CLI used to generate the stats graphs.
 The command and the arguments are:
-```positional arguments:
+```
+usage: generate_stats.py generate database config conversationId users
+positional arguments:
   database              database path
   config                config path
   conversationId        conversationId of group chat or personal chat.
   users                 users csv path
-  ```
+```
 An example:  
 ```
 $ export conversationId="928h2c1l-a216-4884-9116-f9e0a0695cv4"
