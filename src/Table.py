@@ -28,14 +28,16 @@ class Table (object):
             for table in args:
                 table.load_table(message)
 
-    def set_users(self, uuid_to_name=None, csv_file = None):
-        self.uuid_to_name = {}
-        if csv_file == None:
-            self.uuid_to_name = uuid_to_name
-        else:
-            self.uuid_to_name = self.load_users_from_csv(csv_file)
-        # sorting b/c our queries will be sorting the uuids and this dict will be used to cross-check between query results
-        self.uuid_to_name = dict(sorted(self.uuid_to_name.items()))
+    @classmethod
+    def set_users(cls, *args, uuid_to_name=None, csv_file = None):
+        for table in args:
+            table.uuid_to_name = {}
+            if csv_file == None:
+                table.uuid_to_name = uuid_to_name
+            else:
+                table.uuid_to_name = Table.load_users_from_csv(csv_file)
+            # sorting b/c our queries will be sorting the uuids and this dict will be used to cross-check between query results
+            table.uuid_to_name = dict(sorted(table.uuid_to_name.items()))
 
     def get_names_list(self):
         names = []
@@ -43,7 +45,8 @@ class Table (object):
             names.append(self.uuid_to_name[uuid])
         return names
     
-    def load_users_from_csv(self, csv_file):
+    @classmethod
+    def load_users_from_csv(cls, csv_file):
         uuid_to_name = {}
         with open(csv_file) as opened_csv_file:
             csv_reader = csv.reader(opened_csv_file)
