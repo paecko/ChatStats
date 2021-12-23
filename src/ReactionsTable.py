@@ -22,10 +22,10 @@ class ReactionsTable(Table):
                 self.insert_in_table({"emoji": reaction['emoji'], "fromId":reaction['fromId'], "targetAuthorUuid":reaction['targetAuthorUuid']})
 
 
-    def plot_receieved_reactions_percentages(self, message_table):
-        self.plot_received_user_reactions(message_table)
+    def plot_receieved_reactions_percentages(self, message_table, save_to=""):
+        self.plot_received_user_reactions(message_table, save_to)
 
-    def plot_received_user_reactions(self, message_table = None):
+    def plot_received_user_reactions(self, message_table = None, save_to=""):
         key_emojis, count = self.get_most_popular_emojis()
         uuid_to_emoji_counts = self.populate_reaction_counts(key_emojis)
         emoji_counts = self.create_transposed_emoji_counts_list(uuid_to_emoji_counts)
@@ -36,7 +36,11 @@ class ReactionsTable(Table):
         names = self.get_names_list()
         df = pd.DataFrame(data_frame, index=names)
         ax = df.plot.bar(rot=0)
-        plt.show()
+
+        if save_to == "":
+            plt.show()
+        else:
+            plt.savefig(save_to)
 
     def create_reaction_dataframe(self, key_emojis, emoji_counts):
         data_frame = {}
@@ -88,9 +92,12 @@ class ReactionsTable(Table):
         return emojis, counts
 
     def reaction_percentage_over_total_messages(self, message_table, emoji_counts):
-        messages_per_user = message_table.get_messages_per_user()
+        name_to_counts = message_table.get_name_to_message_counts()
+        messages_per_user = list(name_to_counts.values())
         for emoji_count_list in emoji_counts:
             for i in range(len(emoji_count_list)):
+                print(messages_per_user)
+                print(emoji_count_list)
                 if messages_per_user[i] != 0:
                     emoji_count_list[i] = (emoji_count_list[i]/messages_per_user[i]) * 100
                 else:

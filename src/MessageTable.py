@@ -1,3 +1,4 @@
+from os import name
 from Table import Table
 from Utils.General import unix_time_to_date_time_string, are_required_parameters_in_message
 from string import Template
@@ -18,18 +19,21 @@ class MessageTable(Table):
             timestamp_string = unix_time_to_date_time_string(message['timestamp'])
             self.insert_in_table({"timestamp": timestamp_string, "source_uuid":message['sourceUuid'], "body": message["body"]})
     
-    def get_messages_per_user(self):
+    def get_name_to_message_counts(self):
         query_template = Template("SELECT source_uuid, COUNT() as count FROM $table_name GROUP BY source_uuid ORDER BY source_uuid")
         results = self.query_table(query_template)
-        counts = []
+        name_to_counts = {}
         for res in results:
             if res[0] in self.uuid_to_name:
-                counts.append(res[1])
-        return counts 
+                name = self.uuid_to_name[res[0]]
+                count = res[1]
+                name_to_counts[name] = count
+        return name_to_counts 
 
     def plot_messages_per_user(self, save_to=""):
-        message_counts = self.get_messages_per_user()
-        names = self.get_names_list()
+        name_to_counts = self.get_name_to_message_counts()
+        names = list(name_to_counts.keys())
+        message_counts = list(name_to_counts.values())
         print(message_counts)
         print(names)
         plt.bar(names,message_counts)

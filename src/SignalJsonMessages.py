@@ -32,7 +32,7 @@ class SignalJsonMessages:
         for message_obj in json_obj:
             if "conversationId" in message_obj and message_obj["conversationId"] == replace_id:
                 message_obj["conversationId"] = replacement_id
-        with open('data2.json', 'w', encoding='utf-8') as f:
+        with open('data.json', 'w', encoding='utf-8') as f:
                 json.dump(json_obj, f, ensure_ascii=False, indent=4)
 
     @classmethod
