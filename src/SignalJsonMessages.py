@@ -1,17 +1,20 @@
 import subprocess
 import json
+from pathlib import Path
 
 
 class SignalJsonMessages:
-
-    def __new__(cls, config_to_sqlite_paths: dict, create_json_file=False):
+    def __new__(cls, config_to_sqlite_paths: dict, create_json_file=False, file_name="data.json"):
         json_message_objects = []
         for config, sqlite in config_to_sqlite_paths.items():
             SignalJsonMessages.run_sqlite_to_json_script(config, sqlite, json_message_objects)
 
         if create_json_file:
-            with open('data.json', 'w', encoding='utf-8') as f:
-                json.dump(json_message_objects, f, ensure_ascii=False, indent=4)
+            try:
+                with open(file_name, 'w', encoding='utf-8') as f:
+                    json.dump(json_message_objects, f, ensure_ascii=False, indent=4)
+            except FileNotFoundError:
+                print("Failed. Invalid output path given.")
         
         return json_message_objects
 

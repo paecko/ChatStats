@@ -1,6 +1,6 @@
 from os import name
-from Table import Table
-from Utils.General import unix_time_to_date_time_string, are_required_parameters_in_message
+from src.Table import Table
+from src.Utils.General import unix_time_to_date_time_string, are_required_parameters_in_message
 from string import Template
 import matplotlib.pyplot as plt
 

@@ -1,5 +1,5 @@
-from Utils.General import are_required_parameters_in_message, sort_by_second
-from Table import Table
+from src.Utils.General import are_required_parameters_in_message, sort_by_second
+from src.Table import Table
 from string import Template
 import matplotlib.pyplot as plt
 import pandas as pd

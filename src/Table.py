@@ -1,4 +1,4 @@
-from Utils.General import create_value_formatters
+from src.Utils.General import create_value_formatters
 import csv
 
 class Table (object):
